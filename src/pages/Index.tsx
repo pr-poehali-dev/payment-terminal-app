@@ -121,7 +121,7 @@ export default function Index() {
                     Терминал оплаты
                   </h1>
                   <p className="text-xl text-muted-foreground">
-                    Добро пожаловать
+                    Создайте новую оплату
                   </p>
                 </div>
                 <div className="pt-8">
