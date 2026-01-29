@@ -279,7 +279,7 @@ export default function Index() {
               <div className="text-center space-y-8">
                 <div className="flex justify-center animate-pulse-success">
                   <div className="w-32 h-32 bg-green-500 rounded-full flex items-center justify-center">
-                    <Icon name="Check" size={72} className="text-white" />
+                    <Icon name="Check" size={72} className="text-white animate-checkmark" />
                   </div>
                 </div>
                 <div>
