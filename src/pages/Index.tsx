@@ -134,6 +134,9 @@ export default function Index() {
                     Создать оплату
                   </Button>
                 </div>
+                <div className="pt-4">
+                  <p className="text-sm text-gray-400">by @BortexChannel</p>
+                </div>
               </div>
             </Card>
           </div>
