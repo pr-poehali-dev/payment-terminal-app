@@ -277,10 +277,8 @@ export default function Index() {
           <div className="animate-fade-in">
             <Card className="bg-white shadow-2xl border-0 p-12">
               <div className="text-center space-y-8">
-                <div className="flex justify-center animate-pulse-success">
-                  <div className="w-32 h-32 bg-green-500 rounded-full flex items-center justify-center">
-                    <Icon name="Check" size={72} className="text-white animate-checkmark" />
-                  </div>
+                <div className="flex justify-center">
+                  <Icon name="Check" size={96} className="text-green-500 animate-checkmark" />
                 </div>
                 <div>
                   <h1 className="text-5xl font-bold text-green-500 mb-4">
