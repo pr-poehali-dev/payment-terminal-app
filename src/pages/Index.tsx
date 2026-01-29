@@ -113,7 +113,7 @@ export default function Index() {
               <div className="text-center space-y-8">
                 <div className="flex justify-center">
                   <div className="w-24 h-24 bg-primary rounded-full flex items-center justify-center">
-                    <Icon name="CreditCard" size={48} className="text-white" />
+                    <Icon name="RussianRuble" size={48} className="text-white" />
                   </div>
                 </div>
                 <div>
