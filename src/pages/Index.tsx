@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
 import Icon from '@/components/ui/icon';
 
-type Screen = 'home' | 'amount' | 'payment' | 'success';
+type Screen = 'home' | 'amount' | 'payment' | 'scanning' | 'success';
 
 export default function Index() {
   const [screen, setScreen] = useState<Screen>('home');
   const [amount, setAmount] = useState<string>('');
+  const [progress, setProgress] = useState(0);
+  const [scanningText, setScanningText] = useState('Сканирование лица...');
 
   const handleNumberClick = (num: string) => {
     if (num === '.' && amount.includes('.')) return;
@@ -33,12 +36,39 @@ export default function Index() {
   };
 
   const handlePayment = () => {
-    setScreen('success');
-    setTimeout(() => {
-      setScreen('home');
-      setAmount('');
-    }, 3000);
+    setScreen('scanning');
+    setProgress(0);
+    setScanningText('Сканирование лица...');
   };
+
+  useEffect(() => {
+    if (screen === 'scanning') {
+      const interval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              setScreen('success');
+              setTimeout(() => {
+                setScreen('home');
+                setAmount('');
+                setProgress(0);
+              }, 3000);
+            }, 300);
+            return 100;
+          }
+          
+          if (prev === 30) setScanningText('Анализ черт лица...');
+          if (prev === 60) setScanningText('Проверка безопасности...');
+          if (prev === 90) setScanningText('Подтверждение оплаты...');
+          
+          return prev + 2;
+        });
+      }, 50);
+
+      return () => clearInterval(interval);
+    }
+  }, [screen]);
 
   const handleCancel = () => {
     setScreen('home');
@@ -180,6 +210,31 @@ export default function Index() {
                     <Icon name="Fingerprint" size={32} className="mr-3" />
                     Оплатить по лицу
                   </Button>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )}
+
+        {screen === 'scanning' && (
+          <div className="animate-fade-in">
+            <Card className="bg-white shadow-2xl border-0 p-12">
+              <div className="text-center space-y-8">
+                <div className="flex justify-center">
+                  <div className="w-32 h-32 bg-primary/20 rounded-full flex items-center justify-center animate-pulse">
+                    <Icon name="ScanFace" size={64} className="text-primary" />
+                  </div>
+                </div>
+                <div>
+                  <h2 className="text-3xl font-bold text-foreground mb-4">
+                    {scanningText}
+                  </h2>
+                  <div className="max-w-md mx-auto space-y-3">
+                    <Progress value={progress} className="h-3" />
+                    <p className="text-xl text-muted-foreground">
+                      {progress}%
+                    </p>
+                  </div>
                 </div>
               </div>
             </Card>
